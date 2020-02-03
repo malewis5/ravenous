@@ -4,14 +4,17 @@ import "./SearchBar.css";
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       term: "",
       location: "",
       sortBy: "best_match"
     };
+
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+
     this.sortByOptions = {
       "Best Match": "best_match",
       "Highest Rated": "rating",
@@ -22,46 +25,39 @@ class SearchBar extends React.Component {
   getSortByClass(sortByOption) {
     if (this.state.sortBy === sortByOption) {
       return "active";
-    } else {
-      return "";
     }
+    return "";
   }
 
   handleSortByChange(sortByOption) {
-    this.setState({
-      sortBy: sortByOption
-    });
+    this.setState({ sortBy: sortByOption });
   }
 
   handleTermChange(event) {
-    this.setState({
-      term: event.target.value
-    });
+    this.setState({ term: event.target.value });
   }
 
   handleLocationChange(event) {
-    this.setState({
-      location: event.target.value
-    });
-  }
-
-  searchYelp(term, location, sortBy) {
-    alert(`Searching for ${term} in ${location} by ${sortBy}`);
+    this.setState({ location: event.target.value });
   }
 
   handleSearch(event) {
-    this.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+    this.props.searchYelp(
+      this.state.term,
+      this.state.location,
+      this.state.sortBy
+    );
+
     event.preventDefault();
   }
 
-  //Video @ 41:18
   renderSortByOptions() {
     return Object.keys(this.sortByOptions).map(sortByOption => {
       let sortByOptionValue = this.sortByOptions[sortByOption];
       return (
         <li
-          key={sortByOptionValue}
           className={this.getSortByClass(sortByOptionValue)}
+          key={sortByOptionValue}
           onClick={this.handleSortByChange.bind(this, sortByOptionValue)}
         >
           {sortByOption}
@@ -84,9 +80,7 @@ class SearchBar extends React.Component {
           <input placeholder="Where?" onChange={this.handleLocationChange} />
         </div>
         <div className="SearchBar-submit">
-          <a searchYelp={this.searchYelp} onClick={this.handleSearch}>
-            Let's Go
-          </a>
+          <a onClick={this.handleSearch}>Let's Go</a>
         </div>
       </div>
     );
