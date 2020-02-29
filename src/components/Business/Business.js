@@ -6,13 +6,18 @@ class Business extends React.Component {
     return (
       <div className="Business">
         <div className="image-container">
-          <a href={this.props.business.website} target="_blank">
+          <a
+            href={this.props.business.website}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={this.props.business.imageSrc} alt="" />
           </a>
         </div>
         <a
           href={this.props.business.website}
           target="_blank"
+          rel="noopener noreferrer"
           style={{ textDecoration: "none", color: "black" }}
         >
           <h2>{this.props.business.name}</h2>
